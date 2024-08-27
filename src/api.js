@@ -21,7 +21,13 @@ app.use('/salas', router.get('/salas', async (req,res) => {
     const salaController = require('./controller/salaController');
     let resp = await salaController.get(req);
     res.status(200).send(resp);
-}));    
+}));
+
+app.use('/salas/:id', router.get('/salas/:id', async (req,res) => {
+    const salaController = require('./controller/salaController');
+    let resp = await salaController.getById(req);
+    res.status(200).send(resp);
+}));
 
 app.use('/salas', router.post('/salas', async (req,res) => {
     const salaController = require('./controller/salaController');
@@ -47,6 +53,17 @@ app.use('/sair' , router.post('/sair', async (req,res) => {
     res.status(200).send(resp);
 }));
 
+app.use('/mensagens/:id', router.get('/mensagens/:id', async (req,res) => {
+    const mensagemController = require('./controller/mensagemController');
+    let resp = await mensagemController.get(req);
+    res.status(200).send(resp);
+}));
+
+app.use('/mensagens', router.post('/mensagens', async (req,res) => {
+    const mensagemController = require('./controller/mensagemController');
+    let resp = await mensagemController.post(req, res);
+    res.status(200).send(resp);
+}));
 
 
 module.exports = app;

@@ -9,7 +9,7 @@ async function listarSalas() {
 }
 
 async function criarSala(data) {
-  let salas = await db.insertOne('salas', {nome: data.nome, tipo: data.tipo, chave : data.chave, membros: [], mensagems: []});
+  let salas = await db.insertOne('salas', {nome: data.nome, tipo: data.tipo, chave : data.chave, membros: [], mensagens: []});
   return salas;
 }
 
@@ -19,5 +19,13 @@ async function entrarSala(data) {
   let sala = await db.entrar('salas', {salaId, nick: decryptedToken.nick});
   return sala;
 }
+
+async function getSalaById(data) {
+  let salaId = new ObjectId(data.params.id);
+  let sala = await db.findOne('salas', {salaId});
+  return sala;
+  
+}
+
 
 module.exports = {listarSalas, criarSala, entrarSala};

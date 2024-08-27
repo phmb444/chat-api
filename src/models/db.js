@@ -48,4 +48,9 @@ async function entrar(collection, data){
     return sala;
 }
 
-module.exports = {findAll, insertOne, findOne, deleteOne, entrar};
+async function updateOne(collection, query, data){
+    const db = await connect();
+    return await db.collection(collection).updateOne(query, data);
+}
+
+module.exports = {findAll, insertOne, findOne, deleteOne, entrar, updateOne};
