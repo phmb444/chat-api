@@ -2,9 +2,12 @@
   "name": "api-chat",
   "version": "1.0.0",
   "description": "api de chat feita com express e mongodb",
-  "main": "index.js",
+  "main": "server.js",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
-    "start": "nodemon ./bin/server.js",
+    "start": "node ./bin/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,6 +30,7 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.7.0",
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.4",
+    "vercel": "^37.1.2"
   }
 }
