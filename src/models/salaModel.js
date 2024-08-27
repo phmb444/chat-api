@@ -20,6 +20,13 @@ async function entrarSala(data) {
   return sala;
 }
 
+async function sairSala(data) {
+  let decryptedToken = await token.decryptToken(data.headers.authorization);
+  let salaId = new ObjectId(data.body.salaId);
+  let sala = await db.sair('salas', {salaId, nick: decryptedToken.nick});
+  return sala;
+}
+
 async function getSalaById(data) {
   let salaId = new ObjectId(data.params.id);
   let sala = await db.findOne('salas', {salaId});
@@ -27,5 +34,4 @@ async function getSalaById(data) {
   
 }
 
-
-module.exports = {listarSalas, criarSala, entrarSala};
+module.exports = {listarSalas, criarSala, entrarSala, sairSala, getSalaById};

@@ -53,4 +53,14 @@ async function updateOne(collection, query, data){
     return await db.collection(collection).updateOne(query, data);
 }
 
-module.exports = {findAll, insertOne, findOne, deleteOne, entrar, updateOne};
+async function sair(collection, data){
+    const db = await connect();
+    const sala = await db.collection(collection).findOne(data.salaId);
+    if (sala.membros.includes(data.nick)) {
+        sala.membros = sala.membros.filter((membro) => membro !== data.nick);
+    }
+    await db.collection(collection).updateOne({ _id: data.salaId }, { $set: { membros: sala.membros } });
+    return {message: "Usuário saiu da sala com sucesso"};
+}
+
+module.exports = {findAll, insertOne, findOne, deleteOne, entrar, updateOne, sair};

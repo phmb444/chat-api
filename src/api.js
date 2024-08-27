@@ -41,6 +41,12 @@ app.use("/salas/entrar", router.post('/salas/entrar', async (req,res) => {
     res.status(200).send(resp);
 }));
 
+app.use('/salas/sair', router.post('/salas/sair', async (req,res) => {
+    const salaController = require('./controller/salaController');
+    let resp = await salaController.sair(req, res);
+    res.status(200).send(resp);
+}));
+
 app.use('/entrar', router.post('/entrar', async (req,res) => {
     const usuarioController = require('./controller/usuarioController');
     let resp = await usuarioController.post(req, res);

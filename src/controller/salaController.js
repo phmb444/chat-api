@@ -25,6 +25,14 @@ exports.entrar = async (req, res) => {
     return resp;
 }
 
+exports.sair = async (req, res) => {
+    if (!token.checkToken(req.headers.authorization)){
+        return {error: "Token inválido"};
+    }
+    let resp = await salaModel.sairSala(req);
+    return resp;
+}
+
 exports.getById = async (req, res) => {
     if (!token.checkToken(req.headers.authorization)){
         return {error: "Token inválido"};
