@@ -1,0 +1,32 @@
+{
+  "name": "api-chat",
+  "version": "1.0.0",
+  "description": "api de chat feita com express e mongodb",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./bin/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phmb444/chat-api.git"
+  },
+  "keywords": [
+    "api",
+    "chat",
+    "mongodb"
+  ],
+  "author": "Pedro Haubert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phmb444/chat-api/issues"
+  },
+  "homepage": "https://github.com/phmb444/chat-api#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.7.0",
+    "nodemon": "^3.1.4"
+  }
+}
