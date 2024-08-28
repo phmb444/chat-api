@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-A API Chat é uma aplicação simples construída com Node.js e Express, que permite a criação de salas de chat, a entrada e a saída de usuários nessas salas. A API utiliza MongoDB como banco de dados para armazenar as informações.
+A API Chat é uma aplicação simples construída com Node.js e Express, que permite a criação de salas de chat, a entrada e a saída de usuários nessas salas, além da troca de mensagens. A API utiliza MongoDB como banco de dados para armazenar as informações, assim garantindo persistência dos dados.
 
 ## Estrutura de Diretórios
 
@@ -49,22 +49,22 @@ console.log("Servidor rodando na porta " + port + "!");
 - **Endpoint:** `GET /`
 - **Descrição:** Retorna uma mensagem de boas-vindas.
 - **Resposta Exemplo:**
-    ```json
-    "Hello World!"
-    ```
+```json
+"Hello World!"
+```
 
 ### 2. **Sobre**
 
 - **Endpoint:** `GET /sobre`
 - **Descrição:** Retorna informações sobre a API.
 - **Resposta Exemplo:**
-    ```json
-    {
-        "nome": "API-CHAT",
-        "versão": "0.1.0",
-        "autor": "Pedro Haubert"
-    }
-    ```
+```json
+{
+    "nome": "API-CHAT",
+    "versão": "0.1.0",
+    "autor": "Pedro Haubert"
+}
+```
 
 ### 3. **Listar Salas**
 
@@ -73,18 +73,18 @@ console.log("Servidor rodando na porta " + port + "!");
 - **Autenticação:** Requer um token no cabeçalho de autorização.
 - **Parâmetros:** Nenhum.
 - **Resposta Exemplo:**
-    ```json
-    [
-        {
-            "_id": "sala_id_1",
-            "nome": "Sala 1",
-            "tipo": "publica",
-            "membros": [],
-            "mensagens": []
-        },
-        ...
-    ]
-    ```
+```json
+[
+    {
+        "_id": "sala_id_1",
+        "nome": "Sala 1",
+        "tipo": "publica",
+        "membros": [],
+        "mensagens": []
+    },
+    ...
+]
+```
 
 ### 4. **Criar Sala**
 
@@ -96,11 +96,11 @@ console.log("Servidor rodando na porta " + port + "!");
     - `tipo` (string): Tipo de sala (pública ou privada).
     - `chave` (string): Chave de acesso (opcional para salas privadas).
 - **Resposta Exemplo:**
-    ```json
-    {
-        "salaId": "novo_sala_id"
-    }
-    ```
+```json
+{
+    "salaId": "novo_sala_id"
+}
+```
 
 ### 5. **Entrar em uma Sala**
 
@@ -110,15 +110,15 @@ console.log("Servidor rodando na porta " + port + "!");
 - **Parâmetros:**
     - `salaId` (string): ID da sala que o usuário deseja entrar.
 - **Resposta Exemplo:**
-    ```json
-    {
-        "_id": "sala_id_1",
-        "nome": "Sala 1",
-        "tipo": "publica",
-        "membros": ["usuario_nick"],
-        "mensagens": []
-    }
-    ```
+```json
+{
+    "_id": "sala_id_1",
+    "nome": "Sala 1",
+    "tipo": "publica",
+    "membros": ["usuario_nick"],
+    "mensagens": []
+}
+```
 
 ### 6. **Registrar Usuário**
 
@@ -127,25 +127,25 @@ console.log("Servidor rodando na porta " + port + "!");
 - **Parâmetros:**
     - `nick` (string): Nome do usuário.
 - **Resposta Exemplo:**
-    ```json
-    {
-        "usuario": "usuario_nick",
-        "token": "token_jwt"
-    }
-    ```
+```json
+{
+    "usuario": "usuario_nick",
+    "token": "token_jwt"
+}
+```
 
 ### 7. **Sair da Sala**
 
 - **Endpoint:** `POST /sair`
-- **Descrição:** Remove um usuário do sistema.
+- **Descrição:** Remove um usuário do sistema ou de uma sala.
 - **Parâmetros:**
     - `nick` (string): Nome do usuário que deseja sair.
 - **Resposta Exemplo:**
-    ```json
-    {
-        "message": "Usuário removido com sucesso."
-    }
-    ```
+```json
+{
+    "message": "Usuário removido com sucesso."
+}
+```
 
 ### 8. **Listar Mensagens**
 
@@ -155,19 +155,19 @@ console.log("Servidor rodando na porta " + port + "!");
 - **Parâmetros:**
     - `id` (string): ID da sala.
 - **Resposta Exemplo:**
-    ```json
-    {
-        "mensagens": [
-            {
-                "usuario": "usuario_nick",
-                "mensagem": "Olá!",
-                "data": "2023-04-10T10:20:30.000Z"
-            },
-            ...
-        ],
-        "usuarios": ["usuario_nick_1", "usuario_nick_2"]
-    }
-    ```
+```json
+{
+    "mensagens": [
+        {
+            "usuario": "usuario_nick",
+            "mensagem": "Olá!",
+            "data": "2023-04-10T10:20:30.000Z"
+        },
+        ...
+    ],
+    "usuarios": ["usuario_nick_1", "usuario_nick_2"]
+}
+```
 
 ### 9. **Enviar Mensagem**
 
@@ -178,33 +178,34 @@ console.log("Servidor rodando na porta " + port + "!");
     - `salaId` (string): ID da sala onde a mensagem será enviada.
     - `mensagem` (string): Conteúdo da mensagem.
 - **Resposta Exemplo:**
-    ```json
-    {
-        "mensagens": [
-            {
-                "usuario": "usuario_nick",
-                "mensagem": "Olá!",
-                "data": "2023-04-10T10:20:30.000Z"
-            },
-            ...
-        ],
-        "usuarios": ["usuario_nick_1", "usuario_nick_2"]
-    }
-    ```
+```json
+{
+    "mensagens": [
+        {
+            "usuario": "usuario_nick",
+            "mensagem": "Olá!",
+            "data": "2023-04-10T10:20:30.000Z"
+        },
+        ...
+    ],
+    "usuarios": ["usuario_nick_1", "usuario_nick_2"]
+}
+```
 
 ## Controladores
 
 ### SalaController
 
-- **get(req, res):** Lista todas as salas. Requer que o token seja validado antes de listar.
+- **get(req, res):** Lista todas as salas. Requer validação de token.
 - **post(req, res):** Cria uma nova sala. Verifica o token antes de criar a sala.
-- **entrar(req, res):** Permite que um usuário entre em uma sala ao verificar o token.
+- **entrar(req, res):** Permite a um usuário entrar em uma sala, validando o token.
+- **sair(req, res):** Permite a um usuário sair de uma sala, validando o token.
 - **getById(req, res):** Busca uma sala pelo ID fornecido.
 
 ### UsuarioController
 
 - **post(req, res):** Registra um novo usuário e gera um token.
-- **delete(req, res):** Remove o usuário do sistema.
+- **delete(req, res):** Remove um usuário da base de dados.
 
 ### MensagemController
 
@@ -215,7 +216,7 @@ console.log("Servidor rodando na porta " + port + "!");
 
 ### DB Model (db.js)
 
-Funções para interagir com o banco de dados MongoDB, incluindo:
+Funções para interagir com o banco de dados MongoDB:
 
 - **connect()**: Conecta ao banco de dados.
 - **findAll(collection)**: Busca todos os documentos de uma coleção.
@@ -223,6 +224,7 @@ Funções para interagir com o banco de dados MongoDB, incluindo:
 - **findOne(collection, data)**: Busca um documento específico.
 - **deleteOne(collection, data)**: Deleta um documento de uma coleção.
 - **entrar(collection, data)**: Adiciona um membro a uma sala existente.
+- **sair(collection, data)**: Remove um membro de uma sala existente.
 - **updateOne(collection, query, data)**: Atualiza um documento existente.
 
 ### SalaModel
@@ -230,6 +232,7 @@ Funções para interagir com o banco de dados MongoDB, incluindo:
 - **listarSalas()**: Retorna todas as salas.
 - **criarSala(data)**: Cria uma nova sala com os dados fornecidos.
 - **entrarSala(data)**: Adiciona um usuário a uma sala específica.
+- **sairSala(data)**: Remove um usuário de uma sala específica.
 - **getSalaById(data)**: Retorna a sala específica com base no ID.
 
 ### UsuarioModel
