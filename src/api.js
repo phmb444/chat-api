@@ -2,12 +2,13 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
-// Middleware para permitir CORS de qualquer origem
 app.use(cors({
-    origin: 'http://localhost:3000',  // Permite apenas requisições de localhost:3000
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Permite apenas os métodos específicos
-    allowedHeaders: ['Content-Type', 'Authorization'],  // Permite os cabeçalhos necessários
-  }));
+  origin: '*',  // Permite todas as origens (não recomendado em produção)
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,  // Permite enviar cookies ou credenciais
+}));
+
 
 // Middleware for parsing incoming requests
 app.use(express.urlencoded({ extended: true }));
