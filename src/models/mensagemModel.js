@@ -11,11 +11,11 @@ async function enviarMensagem(data){
     if (!token.checkToken(data.headers.authorization)){
         return {error: "Token inválido"};
     }
-    let userNick = await token.decryptToken(data.headers.authorization);
-    userNick = userNick.nick;
-    let salaId = new ObjectId(data.body.salaId);
+    let decryptedToken = await token.decryptToken(data.headers.authorization);
+    let nick = decryptedToken.nick;
+    let idSala = new ObjectId(data.body.salaId);
     let mensagem = data.body.mensagem;
-    let sala = await db.findOne('salas', {_id: salaId});
+    let sala = await db.findOne('salas', {_id: idSala});
     console.log(sala);
     sala.mensagens.push({usuario: userNick, mensagem: mensagem, data : new Date()});
     await db.updateOne('salas', {_id: salaId}, {$set: {mensagens: sala.mensagens}});
